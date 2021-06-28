@@ -2,18 +2,18 @@
 
 module counter(ena,reset,clk,show);
 input ena,reset,clk;
-output reg[11:0] show;
+output [11:0] show;
 reg[3:0] show1,show2,show3;
 //reg[3:0] show1_reg,show2_reg,show3_reg;
-reg reset_clk;
+//reg reset_clk;
 always @(posedge clk or posedge reset)
   begin
-    if (reset || reset_clk)
+    if (reset) //|| reset_clk)
       begin
         show3 <= 4'd0;
         show2 <= 4'd0;
         show1 <= 4'd0;
-        reset_clk<=0;
+        //reset_clk<=0;
       end
     else
       begin
@@ -37,8 +37,9 @@ always @(posedge clk or posedge reset)
           end
       end
   end
-  always @(negedge ena) begin
-      show<={show1,show2,show3};
-      reset_clk<=1;
-  end
+  assign show = {show1,show2,show3};
+  // always @(negedge ena) begin
+  //     show<={show1,show2,show3};
+  //     reset_clk<=1;
+  // end
 endmodule

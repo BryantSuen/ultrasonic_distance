@@ -60,7 +60,7 @@ always @(posedge clk_17k or posedge reset) begin
       clk_34<=0;
     end
     else begin
-      if(cnt_34==0) clk_34=1;
+      if(cnt_34 < 5) clk_34=1;
       else clk_34=0;
       if(cnt_34<499) cnt_34=cnt_34+1;
       else cnt_34=0;
