@@ -1,0 +1,5 @@
+report是报告
+
+assets里面是报告中的图片
+
+design file里面是设计文件，分为analog和digital两个部分，analog里面有电路设计文件(.asc)，digital里面有数字电路设计的代码，digital里面的压缩包是一个组装好的vivado工程，schematic是数字部分电路图，方便老师直接检查

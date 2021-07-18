@@ -1,3 +1,6 @@
+
+
+
 `timescale 1ns / 1ps
 module top(system_clk,reset,cathode,stimulus,leds);
 
@@ -8,13 +11,15 @@ output reg[11:0] leds;
 wire[11:0] show;
 wire clk_34,clk_17k;
 reg ena;
+wire [11:0] raw;
 
-clock clock_1(.system_clk(system_clk),.reset(reset),
-              .clk_1k(clk_1k),.clk_17k(clk_17k),
-              .stimulus(stimulus),.clk_34(clk_34));
+stimulus stimulus_1(.system_clk(system_clk),.reset(reset),.stimulus(stimulus),.clk_17k(clk_17k),.clk_34(clk_34));
 
-counter counter_1(.ena(ena),.reset(clk_34),
-                  .clk(clk_17k),.show(show));
+clk_devider #(.divide(5882))clk_devider_17k(.sys_clk(system_clk),.reset(reset),.clk_devided(clk_17k));
+
+counter counter_1(.ena(ena),.reset(clk_34),.clk(clk_17k),.show(raw));
+
+filter #(.WIDTH(8),.SUM_BIT(3))filter_1(.reset(reset),.clk_34(clk_34),.raw(raw),.show(show));
 
 always @(posedge cathode or posedge reset or posedge clk_34)
   begin
